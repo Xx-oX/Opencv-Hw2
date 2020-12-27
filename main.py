@@ -197,6 +197,8 @@ class MainUi(QtWidgets.QWidget, interface.Ui_Form):
         imgR = cv2.imread('./Hw2_Dataset/Datasets/Q4_Image/imgR.png', 0)
         stereo = cv2.StereoBM_create(numDisparities=160, blockSize=11)
         disparity = stereo.compute(imgL, imgR)
+        disparity.astype('float64')
+        disparity = disparity / (disparity.max()/255.0) - disparity.min()
         fig = plt.figure(0)
         plt.imshow(disparity, 'gray')
         plt.axis('off')
